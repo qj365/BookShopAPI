@@ -42,33 +42,5 @@ namespace BookShopAPI.Areas.Admin.Controllers
             return View(author);
         }
 
-        public ActionResult Delete(int id)
-        {
-            var author = _context.Author.SingleOrDefault(c => c.Id == id);
-            if (author == null)
-                return HttpNotFound();
-            else
-            {
-                _context.Author.Remove(author);
-                _context.SaveChanges();
-                return RedirectToAction("Index", "Author");
-            }
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Save(Author author)
-        {
-            if (author.Id == 0)
-                _context.Author.Add(author);
-            else
-            {
-                var authorInDb = _context.Author.Single(c => c.Id == author.Id);
-                authorInDb.Name = author.Name;
-            }
-
-            _context.SaveChanges();
-            return RedirectToAction("Index", "Author");
-        }
     }
 }

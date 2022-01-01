@@ -26,7 +26,7 @@
                 <div class="card">
                     <!-- /.card-header -->
                     <div class="card-body">
-                        <form id="formAuthor" method="post">
+                        <form id="formAuthor">
                             <div class="form-horizontal">
                                 <hr />
                                 <div class="form-group">
@@ -74,7 +74,7 @@
                 data: author
             })
                 .done(function () {
-                    toastr.success('Sửa tác giả thành công.')
+                    toastr.success('Thêm tác giả thành công.')
                     setTimeout(redirect, 1000)
 
                 })

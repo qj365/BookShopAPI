@@ -68,7 +68,7 @@ namespace BookShopAPI.Areas.Admin.Controllers.Api
 
         // DELETE /api/authors/1
         [HttpDelete]
-        public IHttpActionResult DeleteCustomer(int id)
+        public IHttpActionResult DeleteAuthor(int id)
         {
             var authorInDb = _context.Author.SingleOrDefault(c => c.Id == id);
 

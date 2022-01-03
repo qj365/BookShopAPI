@@ -1,0 +1,90 @@
+﻿@model IEnumerable<BookShopAPI.Models.Category>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Thể loại</h1>
+            </div>
+
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="col-sm-2">
+                            <a href="./Category/Create" class="btn btn-primary">
+                                Thêm mới
+                            </a>
+                        </div>
+
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <table id="example1" class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Tên thể loại</th>
+                                    <th>Chức năng</th>
+                                </tr>
+                            </thead>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    $(function () {
+        const table = $("#example1").DataTable({
+          ajax: {
+              url: "/api/category",
+              dataSrc: ""
+          },
+          columns: [
+              {
+                  data: "name"
+              },
+              {
+                  data: "id",
+                  render: function (data) {
+                      const attr = `<a class="btn-edit" href="/Admin/Category/Edit/${data}"> <i class="far fa-edit icon-edit"></i> </a>
+                                    <a class="js-delete" data-id="${data}" href="#"> <i class="far fa-trash-alt icon-delete"></i> </a>`
+                      return attr;
+                  }
+              }
+          ],
+      });
+
+      $("#example1").on("click", ".js-delete", function (event) {
+          var button = $(this);
+          event.preventDefault();
+
+          bootbox.confirm("Bạn chắc chắn muốn xoá mục này?", function (r) {
+              if (r) {
+                  $.ajax({
+                      url: "/api/category/" + button.attr("data-id"),
+                      method: "DELETE",
+                      success: function () {
+                          table.row(button.parents("tr")).remove().draw()
+                      }
+                  })
+              }
+          })
+
+
+      });
+  });
+</script>

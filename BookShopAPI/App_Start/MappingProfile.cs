@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BookShopAPI.Areas.Admin.ViewModel;
 using BookShopAPI.Models;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,10 @@ namespace BookShopAPI.App_Start
         public MappingProfile()
         {
             Mapper.CreateMap<Author, Author>();
+            Mapper.CreateMap<Book, Book>();
+            Mapper.CreateMap<BookViewModel, Book>();
+
+
         }
     }
 }

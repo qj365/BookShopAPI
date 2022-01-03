@@ -59,7 +59,7 @@
     $(document).ready(function () {
 
         $('#formAuthor').submit(function (e) {
-            e.preventDefault()
+            
             const id = $('#Id').val()
             const name = $('#Name').val()
             const redirect = function () {
@@ -82,6 +82,7 @@
                     toastr.error('Có lỗi đã xảy ra.')
 
                 })
+            return false
         })
     })
 </script>

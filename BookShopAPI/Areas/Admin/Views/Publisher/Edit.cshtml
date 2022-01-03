@@ -1,0 +1,108 @@
+﻿@model BookShopAPI.Models.Publisher
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Sửa nhà xuất bản</h1>
+            </div>
+
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <form id="formPublisher">
+                            <div class="form-horizontal">
+                                <hr />
+                                <div class="form-group">
+                                    @Html.HiddenFor(model => model.Id)
+                                    <label class="control-label col-md-2">Tên nhà xuất bản</label>
+                                    <div class="col-5">
+                                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+
+                                    </div>
+                                </div>
+                                <div class="form-group">
+
+                                    <label class="control-label col-md-2">Địa chỉ</label>
+                                    <div class="col-5">
+                                        @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+
+                                    </div>
+                                </div>
+                                <div class="form-group">
+
+                                    <label class="control-label col-md-2">Website</label>
+                                    <div class="col-5">
+                                        @Html.EditorFor(model => model.Website, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.Website, "", new { @class = "text-danger" })
+
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-offset-2 col-md-10">
+                                        <input type="submit" value="Save" class="btn btn-primary" />
+                                        <a href="~/Admin/Publisher" class="btn btn-warning">Huỷ</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+
+
+    $(document).ready(function () {
+
+        $('#formPublisher').submit(function (e) {
+            e.preventDefault()
+            const id = $('#Id').val()
+            const name = $('#Name').val()
+            const address = $('#Address').val()
+            const website = $('#Website').val()
+            const redirect = function () {
+                window.location.href = '/Admin/Publisher'
+            }
+            const publisher = {
+                name: name,
+                address: address,
+                website: website,
+            }
+            $.ajax({
+                url: `/api/publisher/${id}`,
+                method: 'put',
+                data: publisher
+            })
+                .done(function () {
+                    toastr.success('Sửa nhà xuất bản thành công.')
+                    setTimeout(redirect, 1000)
+
+                })
+                .fail(function () {
+                    toastr.error('Có lỗi đã xảy ra.')
+
+                })
+        })
+    })
+</script>

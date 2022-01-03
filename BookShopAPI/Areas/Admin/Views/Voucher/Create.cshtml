@@ -1,0 +1,176 @@
+﻿@model BookShopAPI.Models.Voucher
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Thêm khuyến mãi</h1>
+            </div>
+
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <form id="formVoucher">
+                            <div class="form-horizontal">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        @Html.HiddenFor(model => model.Id)
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-12" })
+                                            <div class="col-md-10">
+                                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.Code, htmlAttributes: new { @class = "control-label col-md-12" })
+                                            <div class="col-md-10">
+                                                @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.Discount, htmlAttributes: new { @class = "control-label col-md-12" })
+                                            <div class="col-md-10">
+                                                @Html.EditorFor(model => model.Discount, new { htmlAttributes = new { @class = "form-control", @min = "1" } })
+                                                @Html.ValidationMessageFor(model => model.Discount, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="col-md-offset-2 col-md-10">
+                                                <input type="submit" value="Save" class="btn btn-primary" />
+                                                <a href="~/Admin/Voucher" class="btn btn-warning">Huỷ</a>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "control-label col-md-3" })
+                                            <div class="col-md-10 input-group date" id="datetimepicker1" data-target-input="nearest">
+
+                                                @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control" } })
+                                                <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
+                                                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-5">
+                                                @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.EndDate, htmlAttributes: new { @class = "control-label col-md-3" })
+                                            <div class="col-md-10 input-group date" id="datetimepicker2" data-target-input="nearest">
+
+                                                @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control" } })
+                                                <div class="input-group-append" data-target="#datetimepicker2" data-toggle="datetimepicker">
+                                                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-5">
+                                                @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+
+
+    $(document).ready(function () {
+        
+
+        $('#formVoucher').submit(function (e) {
+            e.preventDefault()
+            const id = $('#Id').val()
+            const name = $('#Name').val()
+            const code = $('#Code').val()
+            const discount = $('#Discount').val()
+            let startdate = $('#StartDate').val()
+            let enddate = $('#EndDate').val()
+            const redirect = function () {
+                window.location.href = '/Admin/Voucher'
+            }
+            const changeDate = function (date) {
+                const a = date.split('/')
+                return `${a[1]}/${a[0]}/${a[2]}`
+            }
+
+            startdate =  (changeDate(startdate))
+            enddate =  (changeDate(enddate))
+            console.log(startdate)
+
+            
+            const voucher = {
+                name: name,
+                code: code,
+                discount: discount,
+                startDate: startdate,
+                endDate: enddate
+            }
+            $.ajax({
+                url: `/api/voucher`,
+                method: 'post',
+                data: voucher
+            })
+                .done(function () {
+                    toastr.success('Thêm khuyến mãi thành công.')
+                    setTimeout(redirect, 1000)
+
+                })
+                .fail(function () {
+                    toastr.error('Có lỗi đã xảy ra.')
+
+                })
+        });
+
+        $.validator.methods.date = function (value, element) {
+            return this.optional(element) || moment(value, "DD/MM/YYYY", true).isValid();
+        }
+
+        $('#datetimepicker1').datetimepicker({
+            icons: { time: 'far fa-clock' },
+            format: 'DD/MM/yyyy',
+            locale: 'vi'
+        });
+        $('#datetimepicker2').datetimepicker({
+            useCurrent: false,
+            format: 'DD/MM/yyyy',
+            locale: 'vi',
+            icons: { time: 'far fa-clock' }
+        });
+
+        $("#datetimepicker1").on("change.datetimepicker", function (e) {
+            $('#datetimepicker2').datetimepicker('minDate', e.date);
+        });
+        $("#datetimepicker2").on("change.datetimepicker", function (e) {
+            $('#datetimepicker1').datetimepicker('maxDate', e.date);
+        });
+    });
+</script>

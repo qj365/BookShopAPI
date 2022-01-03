@@ -1,0 +1,124 @@
+﻿@model IEnumerable<BookShopAPI.Models.Voucher>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Khuyến mãi</h1>
+            </div>
+
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="col-sm-2">
+                            <a href="~/Admin/Voucher/Create" class="btn btn-primary">
+                                Thêm mới
+                            </a>
+                        </div>
+
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <table id="example1" class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Tên khuyến mãi</th>
+                                    <th>Mã code khuyến mãi</th>
+                                    <th>Phần trăm khuyến mãi</th>
+                                    <th>Ngày bắt đầu</th>
+                                    <th>Ngày kết thúc</th>
+                                    <th>Chức năng</th>
+                                </tr>
+                            </thead>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    $(function () {
+        
+        const table = $("#example1").DataTable({
+            ajax: {
+                url: "/api/voucher",
+                dataSrc: ""
+            },
+            columns: [
+                {
+                    data: "name"
+                },
+                {
+                    data: "code"
+                },
+                {
+                    data: "discount",
+                    'render': function (discount) {
+                        return discount + '%';
+                    }
+                },
+                {
+                    data: "startDate",
+                    'render': function (startDate) {
+                        var sDate = new Date(startDate);
+                        var date = ("0" + sDate.getDate()).slice(-2);
+                        var month = ("0" + (sDate.getMonth() + 1)).slice(-2);
+                        var year = sDate.getFullYear();
+                        return (date + "/" + month + "/" + year);
+                    }
+                },
+                {
+                    data: "endDate",
+                    'render': function (endDate) {
+                        var eDate = new Date(endDate);
+                        var date = ("0" + eDate.getDate()).slice(-2);
+                        var month = ("0" + (eDate.getMonth() + 1)).slice(-2);
+                        var year = eDate.getFullYear();
+                        return (date + "/" + month + "/" + year);
+                    }
+                },
+                {
+                    data: "id",
+                    render: function (data) {
+                        const attr = `<a class="btn-edit" href="/Admin/Voucher/Edit/${data}"> <i class="far fa-edit icon-edit"></i> </a>
+                                    <a class="js-delete" data-id="${data}" href="#"> <i class="far fa-trash-alt icon-delete"></i> </a>`
+                        return attr;
+                    }
+                }
+            ],
+        });
+
+        $("#example1").on("click", ".js-delete", function (event) {
+            var button = $(this);
+            event.preventDefault();
+
+            bootbox.confirm("Bạn chắc chắn muốn xoá mục này?", function (r) {
+                if (r) {
+                    $.ajax({
+                        url: "/api/voucher/" + button.attr("data-id"),
+                        method: "DELETE",
+                        success: function () {
+                            table.row(button.parents("tr")).remove().draw()
+                        }
+                    })
+                }
+            })
+
+
+        });
+    });
+</script>

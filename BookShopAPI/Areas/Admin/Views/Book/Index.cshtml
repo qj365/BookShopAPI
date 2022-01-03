@@ -52,10 +52,14 @@
                                     <th>
                                         Ảnh bìa
                                     </th>
-                                    <th style="text-align:right">
+
+                                    <th>
                                         Giá
                                     </th>
-                                    <th style="text-align:center">
+                                    <th>
+                                        Giảm giá
+                                    </th>
+                                    <th>
                                         Số lượng
                                     </th>
 
@@ -72,8 +76,8 @@
                                     <th>Chức năng</th>
                                 </tr>
                             </thead>
-
-
+                            
+                            
 
 
                         </table>
@@ -82,7 +86,6 @@
                 </div>
             </div>
         </div>
-
 
     </div>
 </section>
@@ -99,10 +102,25 @@
                     data: "name"
                 },
                 {
-                    data: "photo"
+                    data: "photo",
+                    render: function (data) {
+                        return `<img width="100px" src="/Areas/Admin/Data/BookImage/${data}"/>`
+                    }
                 },
                 {
-                    data: "price"
+                    data: "price",
+                    render: function (data, type, row) {                        
+                        const p = row.discount > 0 ? data * (100 - row.discount) / 100 : data
+                        const n = `<p>${p}</p>`
+                        const y = `<p style="text-decoration: line-through">${data}</p>${n}`
+
+                        const price = row.discount > 0 ? y : n
+                        return price
+                    }
+                },
+                {
+                    data: "discount",
+                    visible: false
                 },
                 {
                     data: "amount"
@@ -119,12 +137,13 @@
                 {
                     data: "id",
                     render: function (data) {
-                        const attr = `<a class="btn-edit" href="/Admin/Author/Edit/${data}"> <i class="far fa-edit icon-edit"></i> </a>
+                        const attr = `<a class="btn-edit" href="/Admin/Book/Edit/${data}"> <i class="far fa-edit icon-edit"></i> </a>
                                     <a class="js-delete" data-id="${data}" href="#"> <i class="far fa-trash-alt icon-delete"></i> </a>`
+
                         return attr;
                     }
                 }
-            ],
+            ]
         });
 
         $("#example1").on("click", ".js-delete", function (event) {

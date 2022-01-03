@@ -1,8 +1,12 @@
-﻿using BookShopAPI.Models;
+﻿using AutoMapper;
+using BookShopAPI.Areas.Admin.ViewModel;
+using BookShopAPI.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
+using System.Web;
 using System.Net.Http;
 using System.Web.Http;
 
@@ -36,13 +40,14 @@ namespace BookShopAPI.Areas.Admin.Controllers.Api
         }
 
         [HttpPost]
-        public IHttpActionResult CreateBook(Book book)
+        public IHttpActionResult CreateBook(BookViewModel bookvm)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
-
+            var book = Mapper.Map<BookViewModel, Book>(bookvm);
             _context.Book.Add(book);
             _context.SaveChanges();
+            bookvm.Id = book.Id;
             return Created(new Uri(Request.RequestUri + "/" + book.Id), book);
         }
 
@@ -59,6 +64,15 @@ namespace BookShopAPI.Areas.Admin.Controllers.Api
                 return NotFound();
 
             bookInDb.Name = book.Name;
+            bookInDb.Discount = book.Discount;
+            bookInDb.Price = book.Price;
+            bookInDb.Amount = book.Amount;
+            bookInDb.Description = book.Description;
+            bookInDb.IdAuthor = book.IdAuthor;
+            bookInDb.IdCategory = book.IdCategory;
+            bookInDb.IdPublisher = book.IdPublisher;
+            bookInDb.Price = book.Price;
+
 
             _context.SaveChanges();
 

@@ -38,13 +38,7 @@
                                                 @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
                                             </div>
                                         </div>
-                                        <div class="form-group">
-                                            @Html.LabelFor(model => model.Code, htmlAttributes: new { @class = "control-label col-md-12" })
-                                            <div class="col-md-10">
-                                                @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control" } })
-                                                @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
-                                            </div>
-                                        </div>
+                                        
                                         <div class="form-group">
                                             @Html.LabelFor(model => model.Discount, htmlAttributes: new { @class = "control-label col-md-12" })
                                             <div class="col-md-10">
@@ -111,7 +105,6 @@
             e.preventDefault()
             const id = $('#Id').val()
             const name = $('#Name').val()
-            const code = $('#Code').val()
             const discount = $('#Discount').val()
             let startdate = $('#StartDate').val()
             let enddate = $('#EndDate').val()
@@ -129,7 +122,6 @@
 
             const voucher = {
                 name: name,
-                code: code,
                 discount: discount,
                 startDate: startdate,
                 endDate: enddate

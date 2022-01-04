@@ -189,9 +189,7 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\Api\AuthorController.cs" />
     <Compile Include="Areas\Admin\Controllers\Api\BookController.cs" />
-
     <Compile Include="Areas\Admin\Controllers\Api\CustomerController.cs" />
-
     <Compile Include="Areas\Admin\Controllers\Api\OrderController.cs" />
     <Compile Include="Areas\Admin\Controllers\Api\VoucherController.cs" />
     <Compile Include="Areas\Admin\Controllers\Api\CategoryController.cs" />
@@ -244,9 +242,9 @@
     <Compile Include="Migrations\202201030927089_change-datetime3.Designer.cs">
       <DependentUpon>202201030927089_change-datetime3.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202201040301506_removecodevoucher.cs" />
-    <Compile Include="Migrations\202201040301506_removecodevoucher.Designer.cs">
-      <DependentUpon>202201040301506_removecodevoucher.cs</DependentUpon>
+    <Compile Include="Migrations\202201040436335_sua-code.cs" />
+    <Compile Include="Migrations\202201040436335_sua-code.Designer.cs">
+      <DependentUpon>202201040436335_sua-code.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -298,12 +296,9 @@
     <Content Include="Areas\Admin\Views\Publisher\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Publisher\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Publisher\Edit.cshtml" />
-
     <Content Include="Areas\Admin\Views\Order\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Order\Info.cshtml" />
-
     <Content Include="Areas\Admin\Views\Customer\Index.cshtml" />
-
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -386,8 +381,8 @@
     <EmbeddedResource Include="Migrations\202201030927089_change-datetime3.resx">
       <DependentUpon>202201030927089_change-datetime3.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202201040301506_removecodevoucher.resx">
-      <DependentUpon>202201040301506_removecodevoucher.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202201040436335_sua-code.resx">
+      <DependentUpon>202201040436335_sua-code.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

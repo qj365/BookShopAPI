@@ -3,7 +3,7 @@ namespace BookShopAPI.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class removecodevoucher : DbMigration
+    public partial class suacode : DbMigration
     {
         public override void Up()
         {

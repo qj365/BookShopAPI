@@ -7,13 +7,13 @@ namespace BookShopAPI.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class removecodevoucher : IMigrationMetadata
+    public sealed partial class suacode : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(removecodevoucher));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(suacode));
         
         string IMigrationMetadata.Id
         {
-            get { return "202201040301506_removecodevoucher"; }
+            get { return "202201040436335_sua-code"; }
         }
         
         string IMigrationMetadata.Source

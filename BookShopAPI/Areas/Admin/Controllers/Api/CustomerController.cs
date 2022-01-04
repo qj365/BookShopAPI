@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BookShopAPI.Areas.Admin.Dto;
 using BookShopAPI.Models;
 using System;
 using System.Collections.Generic;
@@ -23,7 +24,7 @@ namespace BookShopAPI.Areas.Admin.Controllers.Api
         
         public IHttpActionResult GetCustomers()
         {
-            var customers = _context.Customer.ToList();
+            var customers = _context.Customer.ToList().Select(Mapper.Map<Customer, CustomerDto>);
             return Ok(customers);
         }
 

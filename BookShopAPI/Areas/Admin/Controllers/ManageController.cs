@@ -8,7 +8,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using BookShopAPI.Models;
 
-namespace BookShopAPI.Controllers
+namespace BookShopAPI.Areas.Admin.Controllers
 {
     [Authorize]
     public class ManageController : Controller
@@ -32,9 +32,9 @@ namespace BookShopAPI.Controllers
             {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set 
-            { 
-                _signInManager = value; 
+            private set
+            {
+                _signInManager = value;
             }
         }
 
@@ -55,11 +55,11 @@ namespace BookShopAPI.Controllers
         public async Task<ActionResult> Index(ManageMessageId? message)
         {
             ViewBag.StatusMessage =
-                message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
+                message == ManageMessageId.ChangePasswordSuccess ? "Đổi mật khẩu thành công"
                 : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
                 : message == ManageMessageId.SetTwoFactorSuccess ? "Your two-factor authentication provider has been set."
                 : message == ManageMessageId.Error ? "An error has occurred."
-                : message == ManageMessageId.AddPhoneSuccess ? "Your phone number was added."
+                : message == ManageMessageId.AddPhoneSuccess ? "Đổi số điện thoại thành công"
                 : message == ManageMessageId.RemovePhoneSuccess ? "Your phone number was removed."
                 : "";
 
@@ -103,6 +103,7 @@ namespace BookShopAPI.Controllers
         // GET: /Manage/AddPhoneNumber
         public ActionResult AddPhoneNumber()
         {
+            ViewBag.Sdt = UserManager.GetPhoneNumber(User.Identity.GetUserId());
             return View();
         }
 
@@ -123,7 +124,7 @@ namespace BookShopAPI.Controllers
                 var message = new IdentityMessage
                 {
                     Destination = model.Number,
-                    Body = "Your security code is: " + code
+                    Body = "Mã code đổi số điện thoại của bạn là: " + code
                 };
                 await UserManager.SmsService.SendAsync(message);
             }
@@ -333,7 +334,7 @@ namespace BookShopAPI.Controllers
             base.Dispose(disposing);
         }
 
-#region Helpers
+        #region Helpers
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
 
@@ -384,6 +385,6 @@ namespace BookShopAPI.Controllers
             Error
         }
 
-#endregion
+        #endregion
     }
 }

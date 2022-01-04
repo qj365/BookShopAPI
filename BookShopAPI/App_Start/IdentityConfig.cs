@@ -11,6 +11,9 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using BookShopAPI.Models;
+using Twilio;
+using Twilio.Rest.Api.V2010.Account;
+using Twilio.Types;
 
 namespace BookShopAPI
 {
@@ -27,7 +30,14 @@ namespace BookShopAPI
     {
         public Task SendAsync(IdentityMessage message)
         {
-            // Plug in your SMS service here to send a text message.
+            // Initialize the Twilio client
+            TwilioClient.Init("AC2fe7078700aa8439f994a2cb08fa5f8e", "9b58684528129daaa3dcdf075b530ea7");
+
+            // Send a new outgoing SMS by POSTing to the Messages resource
+            var result = MessageResource.Create(
+                from: new PhoneNumber("+13192545348"), // From number, must be an SMS-enabled Twilio number
+                to: new PhoneNumber(message.Destination), // To number, if using Sandbox see note above
+                body: message.Body);
             return Task.FromResult(0);
         }
     }
@@ -40,24 +50,24 @@ namespace BookShopAPI
         {
         }
 
-        public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context) 
+        public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context)
         {
             var manager = new ApplicationUserManager(new UserStore<ApplicationUser>(context.Get<ApplicationDbContext>()));
             // Configure validation logic for usernames
             manager.UserValidator = new UserValidator<ApplicationUser>(manager)
             {
                 AllowOnlyAlphanumericUserNames = false,
-                RequireUniqueEmail = true
+                RequireUniqueEmail = false
             };
 
             // Configure validation logic for passwords
             manager.PasswordValidator = new PasswordValidator
             {
-                RequiredLength = 6,
-                RequireNonLetterOrDigit = true,
-                RequireDigit = true,
-                RequireLowercase = true,
-                RequireUppercase = true,
+                RequiredLength = 5,
+                RequireNonLetterOrDigit = false,
+                RequireDigit = false,
+                RequireLowercase = false,
+                RequireUppercase = false,
             };
 
             // Configure user lockout defaults
@@ -81,7 +91,7 @@ namespace BookShopAPI
             var dataProtectionProvider = options.DataProtectionProvider;
             if (dataProtectionProvider != null)
             {
-                manager.UserTokenProvider = 
+                manager.UserTokenProvider =
                     new DataProtectorTokenProvider<ApplicationUser>(dataProtectionProvider.Create("ASP.NET Identity"));
             }
             return manager;

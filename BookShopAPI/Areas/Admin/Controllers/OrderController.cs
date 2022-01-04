@@ -22,9 +22,9 @@ namespace BookShopAPI.Areas.Admin.Controllers
         }
         public ActionResult Index()
         {
-            var order = _context.Orders.ToList();
+            
 
-            return View(order);
+            return View();
         }
 
         public ActionResult Info(int id)

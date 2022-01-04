@@ -40,6 +40,15 @@ namespace BookShopAPI.Areas.Admin.Controllers.Api
             return Ok(book);
         }
 
+        [Route("api/book/topsold")]
+        public IHttpActionResult GetTopSoldBook()
+        {
+            var book = _context.Database.SqlQuery<BookSoldViewModel>("select top 5 idbook as Id, Book.Name as Name, sum(DetailOrder.Amount) as Sold from DetailOrder, Orders, Book WHERE IdOrder = orders.Id AND ORDERS.IdState != 3 and IdBook = Book.Id group by IdBook, Book.Name       order by Sold DESC; ");
+            if (book == null)
+                return NotFound();
+            return Ok(book);
+        }
+
         [HttpPost]
         public IHttpActionResult CreateBook(BookViewModel bookvm)
         {

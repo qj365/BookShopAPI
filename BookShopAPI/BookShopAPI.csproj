@@ -189,7 +189,9 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\Api\AuthorController.cs" />
     <Compile Include="Areas\Admin\Controllers\Api\BookController.cs" />
+
     <Compile Include="Areas\Admin\Controllers\Api\CustomerController.cs" />
+
     <Compile Include="Areas\Admin\Controllers\Api\OrderController.cs" />
     <Compile Include="Areas\Admin\Controllers\Api\VoucherController.cs" />
     <Compile Include="Areas\Admin\Controllers\Api\CategoryController.cs" />
@@ -200,6 +202,15 @@
     <Compile Include="Areas\Admin\Controllers\CustomerController.cs" />
     <Compile Include="Areas\Admin\Controllers\DashboardController.cs" />
     <Compile Include="Areas\Admin\Controllers\OrderController.cs" />
+    <Compile Include="Areas\Admin\Dto\AuthorDto.cs" />
+    <Compile Include="Areas\Admin\Dto\BookDto.cs" />
+    <Compile Include="Areas\Admin\Dto\CategoryDto.cs" />
+    <Compile Include="Areas\Admin\Dto\CustomerDto.cs" />
+    <Compile Include="Areas\Admin\Dto\InformationDto.cs" />
+    <Compile Include="Areas\Admin\Dto\OrderDto.cs" />
+    <Compile Include="Areas\Admin\Dto\PublisherDto.cs" />
+    <Compile Include="Areas\Admin\Dto\StateDto.cs" />
+    <Compile Include="Areas\Admin\Dto\VoucherDto.cs" />
     <Compile Include="Areas\Admin\ViewModel\BookViewModel.cs" />
     <Compile Include="Areas\Admin\Controllers\VoucherController.cs" />
     <Compile Include="Areas\Admin\Controllers\PublisherController.cs" />
@@ -287,7 +298,12 @@
     <Content Include="Areas\Admin\Views\Publisher\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Publisher\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Publisher\Edit.cshtml" />
+
+    <Content Include="Areas\Admin\Views\Order\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Order\Info.cshtml" />
+
     <Content Include="Areas\Admin\Views\Customer\Index.cshtml" />
+
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -337,7 +353,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\BookImage\" />
-    <Folder Include="Areas\Admin\Views\Order\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

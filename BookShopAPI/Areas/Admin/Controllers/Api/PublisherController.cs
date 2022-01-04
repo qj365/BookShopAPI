@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BookShopAPI.Areas.Admin.Dto;
 using BookShopAPI.Models;
 using System;
 using System.Collections.Generic;
@@ -24,7 +25,7 @@ namespace BookShopAPI.Areas.Admin.Controllers.Api
 
         public IHttpActionResult GetPublisher()
         {
-            var publishers = _context.Publisher.ToList();
+            var publishers = _context.Publisher.ToList().Select(Mapper.Map<Publisher, PublisherDto>);
             return Ok(publishers);
         }
 

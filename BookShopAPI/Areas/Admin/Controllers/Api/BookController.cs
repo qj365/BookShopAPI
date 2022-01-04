@@ -9,6 +9,7 @@ using System.Net;
 using System.Web;
 using System.Net.Http;
 using System.Web.Http;
+using BookShopAPI.Areas.Admin.Dto;
 
 namespace BookShopAPI.Areas.Admin.Controllers.Api
 {
@@ -27,7 +28,7 @@ namespace BookShopAPI.Areas.Admin.Controllers.Api
 
         public IHttpActionResult GetBooks()
         {
-            var books = _context.Book.ToList();
+            var books = _context.Book.ToList().Select(Mapper.Map<Book, BookDto>);
             return Ok(books);
         }
 

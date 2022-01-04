@@ -1,4 +1,5 @@
-﻿using BookShopAPI.Models;
+﻿using BookShopAPI.Areas.Admin.Dto;
+using BookShopAPI.Models;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -75,7 +76,6 @@ namespace BookShopAPI.Areas.Admin.ViewModel
         public int IdPublisher { get; set; }
         [ForeignKey("IdPublisher")]
 
-        public HttpPostedFileBase PhotoFile { get; set; }
 
 
         [Display(Name = "Thể loại")]

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BookShopAPI.Areas.Admin.Dto;
 using BookShopAPI.Models;
 using System;
 using System.Collections.Generic;
@@ -23,7 +24,7 @@ namespace BookShopAPI.Areas.Admin.Controllers.Api
 
         public IHttpActionResult GetCategorys()
         {
-            var cates = _context.Category.ToList();
+            var cates = _context.Category.ToList().Select(Mapper.Map<Category, CategoryDto>); 
             return Ok(cates);
         }
 

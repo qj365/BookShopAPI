@@ -31,22 +31,38 @@ namespace BookShopAPI
         public Task SendAsync(IdentityMessage message)
         {
             // Initialize the Twilio client
-            TwilioClient.Init("ACa16168e598c630e457a90d596085ef62", "9f22e17cf8d797140ea36b626554ebcb");
+            TwilioClient.Init("ACa16168e598c630e457a90d596085ef62", "fa4c9e09e6620dd1b2a294105804f370");
 
-            //var result = MessageResource.Create(
-            //    from: new PhoneNumber("+14439513451"), 
-            //    to: new PhoneNumber(message.Destination),
-            //    body: message.Body);
-            var str = "";
-            for (int i = 0; i < message.Body.Length; i++)
-            {
-                str = str + message.Body[i] + ",,,,,,,";
-            }
-            var twiml = "<Response><Say voice=\"alice\">Your verify code is, " + str + ",,,,,, Again Your verify code is, " + str + "</Say></Response>";
-            var result = CallResource.Create(
-                from: new PhoneNumber("+14439513451"), // From number, must be an SMS-enabled Twilio number
-                to: new PhoneNumber(message.Destination), // To number, if using Sandbox see note above
-                twiml: new Twiml(twiml));
+            //--------Gửi tin nhắn ---------------
+            var result = MessageResource.Create(
+                from: new PhoneNumber("+14439513451"),
+                to: new PhoneNumber(message.Destination),
+                body: message.Body);
+
+
+            //----------------Gọi điện thoại
+            //var twiml = "<Response>" +
+            //                "<Say voice=\"alice\">Your verify code is " + message.Body + "</Say>" +
+            //            "</Response>";
+            //var result = CallResource.Create(
+            //    from: new PhoneNumber("+14439513451"), // Số điện thoại đã mua từ Twilio
+            //    to: new PhoneNumber(message.Destination), // Số điện thoại đăng ký
+            //    twiml: new Twiml(twiml));
+
+
+            //------------- Gọi điện thoại có quãng nghỉ
+            //var str = "";
+            //for (int i = 0; i < message.Body.Length; i++)
+            //{
+            //    str = str + message.Body[i] + ",,,,,,,";
+            //}
+            //var twiml = "<Response><Say voice=\"alice\">Your verify code is, " + str + ",,,,,, Again Your verify code is, " + str + "</Say></Response>";
+            //var result = CallResource.Create(
+            //    from: new PhoneNumber("+14439513451"), // Số điện thoại đã mua từ Twilio
+            //    to: new PhoneNumber(message.Destination), // Số điện thoại đăng ký
+            //    twiml: new Twiml(twiml));
+
+
             return Task.FromResult(0);
         }
 

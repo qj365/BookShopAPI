@@ -87,12 +87,9 @@ namespace BookShopAPI.Areas.Admin.Controllers
                             Body = code
                         };
                         // Send token
-                        try
-                        {
                             await UserManager.SmsService.SendAsync(message);
 
-                        }
-                        catch { }
+                        
                     }
                     return RedirectToAction("VerifyPhoneNumberRegister", "Account", new { PhoneNumber = user.PhoneNumber, UserId = user.Id });
                 }
@@ -178,10 +175,13 @@ namespace BookShopAPI.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.UserName, PhoneNumber = model.PhoneNumber };
+
+                //tạo tài khoản
                 var result = await UserManager.CreateAsync(user, model.Password);
+
                 if (result.Succeeded)
                 {
-
+                    //tạo mã code
                     string code = await UserManager.GenerateChangePhoneNumberTokenAsync(user.Id, user.PhoneNumber);
                     if (UserManager.SmsService != null)
                     {
@@ -191,12 +191,8 @@ namespace BookShopAPI.Areas.Admin.Controllers
                             Body = code
                         };
                         // Send token
-                        try
-                        {
-                            await UserManager.SmsService.SendAsync(message);
-
-                        }
-                        catch { }
+                        await UserManager.SmsService.SendAsync(message);
+                        
                     }
 
                     return RedirectToAction("VerifyPhoneNumberRegister", "Account", new { PhoneNumber = user.PhoneNumber, UserId = user.Id });
@@ -211,8 +207,8 @@ namespace BookShopAPI.Areas.Admin.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> VerifyPhoneNumberRegister(string phoneNumber, string userId)
         {
-            var code = await UserManager.GenerateChangePhoneNumberTokenAsync(userId, phoneNumber);
             // Send an SMS through the SMS provider to verify the phone number
+            var code = await UserManager.GenerateChangePhoneNumberTokenAsync(userId, phoneNumber);
             if (phoneNumber == null)
                 return View("Error");
             else

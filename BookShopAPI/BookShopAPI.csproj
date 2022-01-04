@@ -54,7 +54,6 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
-
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=2.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
@@ -190,22 +189,15 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\Api\AuthorController.cs" />
     <Compile Include="Areas\Admin\Controllers\Api\BookController.cs" />
-
     <Compile Include="Areas\Admin\Controllers\Api\VoucherController.cs" />
-
-
     <Compile Include="Areas\Admin\Controllers\Api\CategoryController.cs" />
     <Compile Include="Areas\Admin\Controllers\Api\PublisherController.cs" />
-
     <Compile Include="Areas\Admin\Controllers\AuthorController.cs" />
     <Compile Include="Areas\Admin\Controllers\BookController.cs" />
     <Compile Include="Areas\Admin\Controllers\CategoryController.cs" />
     <Compile Include="Areas\Admin\Controllers\DashboardController.cs" />
-
     <Compile Include="Areas\Admin\Controllers\VoucherController.cs" />
-
     <Compile Include="Areas\Admin\Controllers\PublisherController.cs" />
-
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -235,6 +227,10 @@
     <Compile Include="Migrations\202201030927089_change-datetime3.cs" />
     <Compile Include="Migrations\202201030927089_change-datetime3.Designer.cs">
       <DependentUpon>202201030927089_change-datetime3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202201040232583_removecodevoucher.cs" />
+    <Compile Include="Migrations\202201040232583_removecodevoucher.Designer.cs">
+      <DependentUpon>202201040232583_removecodevoucher.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -275,18 +271,15 @@
     <Content Include="Areas\Admin\Views\Author\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Author\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Book\Index.cshtml" />
-
     <Content Include="Areas\Admin\Views\Voucher\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Voucher\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Voucher\Create.cshtml" />
-
     <Content Include="Areas\Admin\Views\Category\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Category\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Category\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Publisher\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Publisher\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Publisher\Edit.cshtml" />
-
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -368,6 +361,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202201030927089_change-datetime3.resx">
       <DependentUpon>202201030927089_change-datetime3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202201040232583_removecodevoucher.resx">
+      <DependentUpon>202201040232583_removecodevoucher.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -41,11 +41,6 @@
         [Required(ErrorMessage = "Vui lòng nhập tên khuyến mãi")]
         public string Name { get; set; }
 
-        [StringLength(50)]
-        [Display(Name = "Mã code khuyến mãi")]
-        [Required(ErrorMessage = "Vui lòng nhập code khuyến mãi")]
-        public string Code { get; set; }
-
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Orders> Orders { get; set; }
     }

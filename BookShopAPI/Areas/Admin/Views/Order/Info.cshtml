@@ -133,7 +133,15 @@
                                     </tr>
                                     <tr>
                                         <th>Voucher:</th>
-                                        <td>@Model.Voucher.Name - @Model.Voucher.Discount%</td>
+                                        @{ 
+                                            var str = "";
+                                            if (Model.Voucher != null)
+                                            {
+                                                str = Model.Voucher.Name + " - " + @Model.Voucher.Discount + "%";
+
+                                            }
+                                        }
+                                        <td>@str</td>
                                     </tr>
                                     <tr>
                                         <th>Tổng tiền:</th>

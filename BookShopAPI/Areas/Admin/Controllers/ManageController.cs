@@ -124,7 +124,7 @@ namespace BookShopAPI.Areas.Admin.Controllers
                 var message = new IdentityMessage
                 {
                     Destination = model.Number,
-                    Body = "Mã code đổi số điện thoại của bạn là: " + code
+                    Body = code
                 };
                 await UserManager.SmsService.SendAsync(message);
             }

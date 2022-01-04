@@ -143,8 +143,12 @@
                         return attr;
                     }
                 }
-            ]
+            ],
+            
         });
+
+
+    
 
         $("#example1").on("click", ".js-delete", function (event) {
             var button = $(this);
@@ -156,6 +160,7 @@
                         url: "/api/book/" + button.attr("data-id"),
                         method: "DELETE",
                         success: function () {
+                            toastr.success('Xoá sách thành công.')
                             table.row(button.parents("tr")).remove().draw()
                         }
                     })

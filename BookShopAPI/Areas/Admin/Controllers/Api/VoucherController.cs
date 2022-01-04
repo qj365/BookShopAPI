@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BookShopAPI.Areas.Admin.Dto;
 using BookShopAPI.Models;
 using System;
 using System.Collections.Generic;
@@ -27,7 +28,7 @@ namespace BookShopAPI.Areas.Admin.Controllers.Api
             )
         {
 
-            var vouchers = _context.Voucher.ToList();
+            var vouchers = _context.Voucher.ToList().Select(Mapper.Map<Voucher, VoucherDto>);
 
             //if (!String.IsNullOrWhiteSpace(name))
             //    vouchers = (List<Voucher>)vouchers.Where(c => c.Name.Contains(name));

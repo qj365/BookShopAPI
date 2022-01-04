@@ -31,15 +31,25 @@ namespace BookShopAPI
         public Task SendAsync(IdentityMessage message)
         {
             // Initialize the Twilio client
-            TwilioClient.Init("AC2fe7078700aa8439f994a2cb08fa5f8e", "9b58684528129daaa3dcdf075b530ea7");
+            TwilioClient.Init("ACa16168e598c630e457a90d596085ef62", "9f22e17cf8d797140ea36b626554ebcb");
 
-            // Send a new outgoing SMS by POSTing to the Messages resource
-            var result = MessageResource.Create(
-                from: new PhoneNumber("+13192545348"), // From number, must be an SMS-enabled Twilio number
+            //var result = MessageResource.Create(
+            //    from: new PhoneNumber("+14439513451"), 
+            //    to: new PhoneNumber(message.Destination),
+            //    body: message.Body);
+            var str = "";
+            for (int i = 0; i < message.Body.Length; i++)
+            {
+                str = str + message.Body[i] + ",,,,,,,";
+            }
+            var twiml = "<Response><Say voice=\"alice\">Your verify code is, " + str + ",,,,,, Again Your verify code is, " + str + "</Say></Response>";
+            var result = CallResource.Create(
+                from: new PhoneNumber("+14439513451"), // From number, must be an SMS-enabled Twilio number
                 to: new PhoneNumber(message.Destination), // To number, if using Sandbox see note above
-                body: message.Body);
+                twiml: new Twiml(twiml));
             return Task.FromResult(0);
         }
+
     }
 
     // Configure the application user manager used in this application. UserManager is defined in ASP.NET Identity and is used by the application.

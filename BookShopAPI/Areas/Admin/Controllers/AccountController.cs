@@ -84,7 +84,7 @@ namespace BookShopAPI.Areas.Admin.Controllers
                         var message = new IdentityMessage
                         {
                             Destination = user.PhoneNumber,
-                            Body = "Mã code client server của bạn là: " + code
+                            Body = code
                         };
                         // Send token
                         try
@@ -188,7 +188,7 @@ namespace BookShopAPI.Areas.Admin.Controllers
                         var message = new IdentityMessage
                         {
                             Destination = model.PhoneNumber,
-                            Body = "Mã code client server của bạn là: " + code
+                            Body = code
                         };
                         // Send token
                         try
